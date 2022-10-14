@@ -5,6 +5,7 @@ import { Button } from '../button/Button';
 import { HeroOneButton } from '../hero/HeroOneButton';
 import { Section } from '../layout/Section';
 import { NavbarTwoColumns } from '../navigation/NavbarTwoColumns';
+import { NavItems, Routes } from '../utils/Constants';
 import { Logo } from './Logo';
 
 const Hero = () => (
@@ -12,13 +13,33 @@ const Hero = () => (
     <Section yPadding="py-6">
       <NavbarTwoColumns logo={<Logo xl />}>
         <li>
-          <Link href="https://github.com/ixartz/Next-JS-Landing-Page-Starter-Template">
-            <a>GitHub</a>
+          <Link href={Routes.AboutUs}>
+            <a>{NavItems.BookTaxi}</a>
           </Link>
         </li>
         <li>
-          <Link href="/">
-            <a>Sign in</a>
+          <Link href={Routes.Contract}>
+            <a>{NavItems.Contract}</a>
+          </Link>
+        </li>
+        <li>
+          <Link href={Routes.Pricing}>
+            <a>{NavItems.Pricing}</a>
+          </Link>
+        </li>
+        <li>
+          <Link href={Routes.Services}>
+            <a>{NavItems.Services}</a>
+          </Link>
+        </li>
+        <li>
+          <Link href={Routes.CustomerReviews}>
+            <a>{NavItems.CustomerReviews}</a>
+          </Link>
+        </li>
+        <li>
+          <Link href={Routes.AboutUs}>
+            <a>{NavItems.AboutUs}</a>
           </Link>
         </li>
       </NavbarTwoColumns>
