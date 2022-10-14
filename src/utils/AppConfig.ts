@@ -1,6 +1,6 @@
 export const AppConfig = {
-  site_name: 'Starter',
-  title: 'Nextjs Starter',
-  description: 'Starter code for your Nextjs Boilerplate with Tailwind CSS',
-  locale: 'en',
+  site_name: 'Taxi247',
+  title: 'Taxi Thành Luân',
+  description: 'Taxi Thành Luân chuyên tuyến Hà Nội đi Nội Bài, các tỉnh',
+  locale: 'vi',
 };
