@@ -1,5 +1,5 @@
 export const Routes = {
-  AboutUs: '/ve-chung-toi',
+  AboutUs: '/gioi-thieu',
   CustomerReviews: '/danh-gia',
   Services: '/dich-vu',
   Pricing: '/bang-gia',
@@ -8,7 +8,7 @@ export const Routes = {
 };
 
 export const NavItems = {
-  AboutUs: 'Về chúng tôi',
+  AboutUs: 'Giới thiệu',
   CustomerReviews: 'Đánh giá',
   Services: 'Dịch vụ',
   Pricing: 'Bảng giá',
