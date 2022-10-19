@@ -9,7 +9,7 @@ import { Routes } from '../utils/Constants';
 
 const Index = () => (
   <Base>
-    <Section yPadding="pt-20 pb-32">
+    <Section yPadding="pt-10">
       <HeroOneButton
         title={
           <>
@@ -17,7 +17,7 @@ const Index = () => (
             <span className="text-primary-500">Khách đi sân bay</span>
           </>
         }
-        description="Cung cấp xe đi sân bay Hà Nội - Nội Bài và đi các tỉnh 24/7"
+        description="Cung cấp xe đi Hà Nội - Nội Bài và đi các tỉnh 24/7"
         button={
           <Link href={Routes.BookTaxi}>
             <a>

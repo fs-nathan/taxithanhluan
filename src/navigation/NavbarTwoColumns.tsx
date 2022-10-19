@@ -40,7 +40,7 @@ const NavbarTwoColumns = (props: INavbarProps) => {
       </div>
 
       <nav ref={navRef} className="sm:mt-[1rem] xs:mt-[1rem]">
-        <ul className="navbar flex items-center justify-center font-medium text-xl text-gray-800 sm:text-sm xs:text-xs">
+        <ul className="navbar flex items-center justify-center font-medium text-xl text-gray-800 sm:text-base xs:text-base">
           {props.children}
         </ul>
       </nav>

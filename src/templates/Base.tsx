@@ -3,7 +3,6 @@ import { ReactNode } from 'react';
 import { Contact } from '../cta/Contact';
 import { Meta } from '../layout/Meta';
 import { AppConfig } from '../utils/AppConfig';
-import { Banner } from './Banner';
 import { Footer } from './Footer';
 import { Hero } from './Hero';
 
@@ -16,7 +15,7 @@ const Base = (props: IBaseProps) => (
     <Meta title={AppConfig.title} description={AppConfig.description} />
     <Hero />
     {props.children}
-    <Banner />
+    {/* <Banner /> */}
     <Footer />
     <Contact />
   </div>
