@@ -1,3 +1,4 @@
+import { Contact } from '../cta/Contact';
 import { Meta } from '../layout/Meta';
 import { AppConfig } from '../utils/AppConfig';
 import { Banner } from './Banner';
@@ -12,6 +13,7 @@ const Base = () => (
     <VerticalFeatures />
     <Banner />
     <Footer />
+    <Contact />
   </div>
 );
 

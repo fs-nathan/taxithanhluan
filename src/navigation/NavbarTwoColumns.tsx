@@ -22,7 +22,6 @@ const NavbarTwoColumns = (props: INavbarProps) => (
     </nav>
 
     {/* Hotline */}
-    <div className="sm:hidden xs:hidden"></div>
 
     <style jsx>
       {`

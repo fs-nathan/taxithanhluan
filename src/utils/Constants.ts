@@ -15,3 +15,7 @@ export const NavItems = {
   Contract: 'Thuê xe',
   BookTaxi: 'Đặt taxi',
 };
+
+export const Colors = {
+  Primary: '#0398DC',
+};
