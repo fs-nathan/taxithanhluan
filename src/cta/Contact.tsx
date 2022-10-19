@@ -23,6 +23,16 @@ const Contact = () => {
           />
         </a>
       </div>
+      <div className="cta-button telegram-btn">
+        <a href={`https://t.me/${AppConfig.telegram}`}>
+          <img
+            src="/assets/images/telegram.png"
+            width="50"
+            alt="Telegram"
+            title="Telegram"
+          />
+        </a>
+      </div>
     </>
   );
 };

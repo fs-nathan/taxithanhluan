@@ -47,6 +47,12 @@ body {
   bottom: 85px;
 }
 
+.cta-button.telegram-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 150px;
+}
+
 .cta-button:before {
   position: absolute;
   content: " ";

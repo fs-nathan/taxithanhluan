@@ -6,5 +6,6 @@ export const AppConfig = {
   locale: 'vi',
   contact_phone: '0917812866',
   zalo: '0917812866',
+  telegram: 'MapNguyen',
   hotline: '',
 };
