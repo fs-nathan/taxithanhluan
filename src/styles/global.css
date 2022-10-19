@@ -137,3 +137,7 @@ body::-webkit-scrollbar-thumb {
 body::-webkit-scrollbar-button {
   display: none;
 }
+
+nav > ul > li:hover {
+  color: #0398dc;
+}
