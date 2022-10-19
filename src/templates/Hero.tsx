@@ -13,7 +13,12 @@ const Hero = () => (
     <Section yPadding="py-6">
       <NavbarTwoColumns logo={<Logo xl />}>
         <li>
-          <Link href={Routes.AboutUs}>
+          <Link href={Routes.HomePage}>
+            <a>{NavItems.HomePage}</a>
+          </Link>
+        </li>
+        <li>
+          <Link href={Routes.BookTaxi}>
             <a>{NavItems.BookTaxi}</a>
           </Link>
         </li>

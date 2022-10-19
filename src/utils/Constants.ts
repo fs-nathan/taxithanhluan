@@ -1,4 +1,5 @@
 export const Routes = {
+  HomePage: '/',
   AboutUs: '/gioi-thieu',
   CustomerReviews: '/danh-gia',
   Services: '/dich-vu',
@@ -8,6 +9,7 @@ export const Routes = {
 };
 
 export const NavItems = {
+  HomePage: 'Trang chủ',
   AboutUs: 'Giới thiệu',
   CustomerReviews: 'Đánh giá',
   Services: 'Dịch vụ',
