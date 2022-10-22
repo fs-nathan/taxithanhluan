@@ -50,6 +50,10 @@ module.exports = {
       xl: { min: '1159px' }, // Desktop wide.
       '2xl': { min: '1359px' }, // Desktop widescreen.
     },
+    boxShadow: {
+      'form-header': '0 3px 5px 0 rgb(42 42 42 / 75%)',
+      form: '0 1px 15px rgb(0 0 0 / 40%)',
+    },
   },
   variants: {},
   plugins: [],
