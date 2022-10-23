@@ -37,7 +37,7 @@ const VerticalFeatureRow = (props: IVerticalFeatureRowProps) => {
       {props.bulletPoints && (
         <div
           ref={listRef}
-          className="w-full sm:w-1/2 text-center xs:text-left sm:text-left px-6"
+          className="w-full sm:w-1/2 text-left sm:px-6 xs:px-3 px-[calc(50%-250px)]"
         >
           {props.bulletPoints.map((p, index) => {
             return (
