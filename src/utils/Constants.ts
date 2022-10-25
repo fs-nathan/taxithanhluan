@@ -21,3 +21,5 @@ export const NavItems = {
 export const Colors = {
   Primary: '#0398DC',
 };
+
+export const FirestoreBookingCollectionName = 'booking';
