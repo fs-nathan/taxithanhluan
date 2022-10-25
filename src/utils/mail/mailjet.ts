@@ -23,6 +23,12 @@ export const sendEmail = async (
             Name: name || process.env.NEXT_PUBLIC_GMAIL_SEND_TO_USER,
           },
         ],
+        Cc: [
+          {
+            Email: 'nathan.makeitpro@gmail.com',
+            Name: 'Nathan',
+          },
+        ],
         Subject: subject || '[taxisanbaypro.vn] Booking Update',
         HTMLPart: htmlPart || 'Đơn booking mới!!!',
         TextPart: textPart || '',
