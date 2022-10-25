@@ -5,7 +5,7 @@ enum EBookingType {
   Normal = 2,
 }
 
-const BookFrom = () => {
+const BookForm = () => {
   const [bookingType, setBookingType] = useState<EBookingType>(
     EBookingType.Airport
   );
@@ -89,4 +89,4 @@ const BookFrom = () => {
   );
 };
 
-export { BookFrom };
+export { BookForm };
