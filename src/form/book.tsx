@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
+/* eslint-disable unused-imports/no-unused-vars */
+import { useCallback, useState } from 'react';
 
 enum EBookingType {
   Airport = 1,
@@ -17,13 +18,19 @@ const BookForm = () => {
     []
   );
 
-  useEffect(() => {
-    fetch('/api/mail')
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
-  }, []);
+  // const sendMailBooking = useCallback((book: IBooking) => {
+  //   fetch('/api/mail', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(book),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //     });
+  // }, []);
 
   return (
     <div className="max-w-screen-lg mx-auto px-3 flex items-center justify-center overflow-y-auto bg-gray-100 xs:py-[1rem] sm:py-[1rem] py-[2rem]">
