@@ -4,7 +4,7 @@ const Contact = () => {
   return (
     <>
       <div className="cta-button phone-call">
-        <a href={`tel:${AppConfig.contact_phone}`}>
+        <a href={`tel:${AppConfig.hotline || AppConfig.contact_phone}`}>
           <img
             src="/assets/images/call.png"
             width="50"
