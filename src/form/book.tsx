@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import dayjs from 'dayjs';
 import { addDoc, collection } from 'firebase/firestore';
 import { get } from 'lodash';
+import { useRouter } from 'next/router';
 
 import { database } from '../../firebase/firebaseConfig';
 import {
@@ -19,7 +20,12 @@ enum EBookingType {
   Normal = 2,
 }
 
-const BookForm = () => {
+type BookFormProps = {
+  bookingData?: IBooking;
+};
+
+const BookForm = (props: BookFormProps) => {
+  const router = useRouter();
   const defaultBookingFields = DefaultBookingForm();
   const [booking, setBooking] = useState<IBooking>(defaultBookingFields);
   const [mailSent, setMailSent] = useState(false);
@@ -124,20 +130,29 @@ const BookForm = () => {
     []
   );
 
+  const formDisabled = useMemo(() => {
+    return !!props.bookingData;
+  }, [props.bookingData]);
+
   const disabledButton = useMemo(() => {
     return (
+      formDisabled ||
       !booking.source ||
       !booking.destination ||
       !booking?.customer.name ||
       !booking?.customer.phone
     );
-  }, [booking]);
+  }, [booking, formDisabled]);
 
   useEffect(() => {
     if (booking && mailSent) {
-      console.log('OK');
+      router.push(`/booking/ket-qua/${booking.id}`);
     }
-  }, [mailSent, booking]);
+  }, [mailSent, booking, router]);
+
+  useEffect(() => {
+    if (props.bookingData) setBooking(props.bookingData);
+  }, [props.bookingData]);
 
   return (
     <div className="max-w-screen-lg mx-auto px-3 flex items-center justify-center overflow-y-auto bg-gray-100 xs:py-[1rem] sm:py-[1rem] py-[2rem]">
@@ -152,6 +167,7 @@ const BookForm = () => {
                 : 'text-gray-900'
             }`}
             onClick={() => updateBookingField('type')(EBookingType.Airport)}
+            disabled={formDisabled}
           >
             <i className="fa fa-plane"></i>{' '}
             <span className="ml-[5px]">Sân bay</span>
@@ -163,6 +179,7 @@ const BookForm = () => {
                 : 'text-gray-900'
             }`}
             onClick={() => updateBookingField('type')(EBookingType.Normal)}
+            disabled={formDisabled}
           >
             <i className="fa fa-road"></i>{' '}
             <span className="ml-[5px]">Đường dài</span>
@@ -187,6 +204,8 @@ const BookForm = () => {
               placeholder="Điểm đón"
               type="text"
               onChange={onInputTextChange('source')}
+              disabled={formDisabled}
+              defaultValue={booking.source}
             ></input>
           </div>
           <div className="w-full h-[40px] flex flex-row px-0">
@@ -205,6 +224,8 @@ const BookForm = () => {
               placeholder="Điểm đến"
               type="text"
               onChange={onInputTextChange('destination')}
+              disabled={formDisabled}
+              defaultValue={booking.destination}
             ></input>
           </div>
 
@@ -216,6 +237,8 @@ const BookForm = () => {
                 placeholder="Họ tên*"
                 type="text"
                 onChange={onCustomerInfoChange('name')}
+                disabled={formDisabled}
+                defaultValue={booking.customer.name}
               ></input>
             </div>
             <div className="w-1/2 h-full">
@@ -225,6 +248,8 @@ const BookForm = () => {
                 placeholder="Số điện thoại*"
                 type="text"
                 onChange={onCustomerInfoChange('phone')}
+                disabled={formDisabled}
+                defaultValue={booking.customer.phone}
               ></input>
             </div>
           </div>
@@ -235,6 +260,8 @@ const BookForm = () => {
               placeholder="Email (nếu có)"
               type="email"
               onChange={onCustomerInfoChange('email')}
+              disabled={formDisabled}
+              defaultValue={booking.customer.email}
             ></input>
           </div>
           <div className="w-full h-[40px] flex flex-row px-0 space-x-2">
@@ -244,6 +271,7 @@ const BookForm = () => {
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm xs:text-xs rounded-lg focus:outline-primary-500 block w-full p-2.5"
                 defaultValue={booking.carType}
                 onChange={onSelectInputChange('carType')}
+                disabled={formDisabled}
               >
                 {CarTypes.map((type) => (
                   <option key={`${type}-slots`} value={type}>
@@ -258,6 +286,7 @@ const BookForm = () => {
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm xs:text-xs rounded-lg focus:outline-primary-500 block w-full p-2.5"
                 defaultValue={booking.breakPoints}
                 onChange={onSelectInputChange('breakPoints')}
+                disabled={formDisabled}
               >
                 {BreakPoints.map((item) => (
                   <option key={`${item}-slots`} value={item}>
@@ -275,6 +304,7 @@ const BookForm = () => {
                 type="date"
                 defaultValue={booking.pickupDate}
                 onChange={onDateChange}
+                disabled={formDisabled}
               ></input>
             </div>
             <div className="w-1/2 h-full">
@@ -285,6 +315,7 @@ const BookForm = () => {
                 type="time"
                 defaultValue={booking.pickupTime}
                 onChange={onTimeChange}
+                disabled={formDisabled}
               ></input>
             </div>
           </div>
@@ -296,6 +327,8 @@ const BookForm = () => {
                 placeholder="Mã chuyến bay (nếu có)"
                 type="text"
                 onChange={onCustomerInfoChange('flightNo')}
+                disabled={formDisabled}
+                defaultValue={booking.flightNo}
               ></input>
             </div>
           )}
@@ -306,8 +339,9 @@ const BookForm = () => {
                   id="twoways"
                   type="checkbox"
                   className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:outline-none"
-                  defaultChecked={booking.isTwoWaysBooking}
+                  checked={booking.isTwoWaysBooking}
                   onClick={onCheckBoxClicked('isTwoWaysBooking')}
+                  disabled={formDisabled}
                 />
                 <label
                   htmlFor="twoways"
@@ -323,8 +357,9 @@ const BookForm = () => {
                   id="bill"
                   type="checkbox"
                   className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:outline-none"
-                  defaultChecked={booking.isBillRequired}
+                  checked={booking.isBillRequired}
                   onClick={onCheckBoxClicked('isBillRequired')}
+                  disabled={formDisabled}
                 />
                 <label
                   htmlFor="bill"
@@ -340,7 +375,7 @@ const BookForm = () => {
             onClick={handleSubmit}
             disabled={disabledButton}
           >
-            Đặt xe
+            {props.bookingData ? 'Đã đặt xe' : 'Đặt xe'}
           </button>
         </div>
       </div>
