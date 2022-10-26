@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
 /* eslint-disable unused-imports/no-unused-vars */
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import dayjs from 'dayjs';
 import { addDoc, collection } from 'firebase/firestore';
@@ -113,6 +113,15 @@ const BookForm = () => {
     []
   );
 
+  const disabledButton = useMemo(() => {
+    return (
+      !booking.source ||
+      !booking.destination ||
+      !booking?.customer.name ||
+      !booking?.customer.phone
+    );
+  }, [booking]);
+
   useEffect(() => {
     if (booking && mailSent) {
       console.log('OK');
@@ -122,7 +131,7 @@ const BookForm = () => {
   return (
     <div className="max-w-screen-lg mx-auto px-3 flex items-center justify-center overflow-y-auto bg-gray-100 xs:py-[1rem] sm:py-[1rem] py-[2rem]">
       {/* Form */}
-      <div className="w-[600px] h-[452px] xs:w-full xs:min-h-[452px] sm:w-full sm:min-h-[452px] flex flex-col rounded-[5px] shadow-form">
+      <div className="w-[600px] min-h-[452px] xs:w-full xs:min-h-[452px] sm:w-full sm:min-h-[452px] flex flex-col rounded-[5px] shadow-form">
         {/* Form header */}
         <div className="w-full h-[62px] bg-primary-500 shadow-form-header flex flex-row justify-between rounded-t-[5px]">
           <button
@@ -268,9 +277,21 @@ const BookForm = () => {
               ></input>
             </div>
           </div>
+          {booking.type === EBookingType.Airport && (
+            <div className="w-full h-[40px] flex flex-row px-0 space-x-2">
+              <input
+                className="w-full h-full pl-[1rem] sm:pl-[0.5rem] xs:pl-[0.5rem] focus:outline-primary-500 border border-[#ddd] rounded-[5px] placeholder:text-gray-600 sm:placeholder:text-sm xs:placeholder:text-xs"
+                id="flight_no"
+                placeholder="Mã chuyến bay (nếu có)"
+                type="text"
+                onChange={onCustomerInfoChange('flightNo')}
+              ></input>
+            </div>
+          )}
           <button
-            className="w-full h-[40px] btn btn-primary bg-primary-500 rounded-[5px] text-white sm:text-sm xs:text-xs"
+            className="w-full h-[40px] btn btn-primary bg-primary-500 rounded-[5px] text-white sm:text-sm xs:text-xs disabled:bg-gray-500"
             onClick={handleSubmit}
+            disabled={disabledButton}
           >
             Đặt xe
           </button>
