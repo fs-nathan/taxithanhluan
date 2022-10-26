@@ -1,5 +1,18 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable unused-imports/no-unused-vars */
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+
+import dayjs from 'dayjs';
+import { addDoc, collection } from 'firebase/firestore';
+import { get } from 'lodash';
+
+import { database } from '../../firebase/firebaseConfig';
+import {
+  BreakPoints,
+  CarTypes,
+  DefaultBookingForm,
+  IBooking,
+} from '../types/booking';
 
 enum EBookingType {
   Airport = 1,
@@ -7,30 +20,104 @@ enum EBookingType {
 }
 
 const BookForm = () => {
-  const [bookingType, setBookingType] = useState<EBookingType>(
-    EBookingType.Airport
-  );
+  const defaultBookingFields = DefaultBookingForm();
+  const [booking, setBooking] = useState<IBooking>(defaultBookingFields);
+  const [mailSent, setMailSent] = useState(false);
 
-  const onClickChangeBookingType = useCallback(
-    (type: EBookingType) => () => {
-      setBookingType(type);
+  const updateBookingField = useCallback(
+    (field: string) => (value: any) => {
+      setBooking((prev) => {
+        const fields = { ...prev };
+        fields[field] = value;
+        return fields;
+      });
     },
     []
   );
 
-  // const sendMailBooking = useCallback((book: IBooking) => {
-  //   fetch('/api/mail', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(book),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //     });
-  // }, []);
+  const onInputTextChange = useCallback(
+    (field: string) => (event: any) => {
+      updateBookingField(field)(event.target.value);
+    },
+    [updateBookingField]
+  );
+
+  const sendMailBooking = useCallback(async () => {
+    let res = await fetch('/api/mail', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(booking),
+    });
+    res = await res.json();
+    const messages = get(res, 'response.Messages', []);
+    if (messages) {
+      if (messages[0].status === 'success') {
+        setMailSent(true);
+      }
+    }
+  }, [booking]);
+
+  const addBooking = useCallback(async () => {
+    try {
+      await addDoc(collection(database, 'booking'), booking);
+      await sendMailBooking();
+    } catch (e) {
+      console.log(e);
+    }
+  }, [booking, sendMailBooking]);
+
+  const handleSubmit = useCallback(async () => {
+    await addBooking();
+  }, [addBooking]);
+
+  const onSelectInputChange = useCallback(
+    (field: string) => (e: React.ChangeEvent<HTMLSelectElement>) => {
+      const { value } = e.target;
+      setBooking((prev) => {
+        const fields = { ...prev };
+        fields[field] = value;
+        return fields;
+      });
+    },
+    []
+  );
+
+  const onDateChange = useCallback((e) => {
+    const date = dayjs(e.target.value).format('YYYY-MM-DD');
+
+    setBooking((prev) => {
+      const fields = { ...prev };
+      fields.pickupDate = date;
+      return fields;
+    });
+  }, []);
+
+  const onTimeChange = useCallback((e) => {
+    setBooking((prev) => {
+      const fields = { ...prev };
+      fields.pickupTime = e.target.value;
+      return fields;
+    });
+  }, []);
+
+  const onCustomerInfoChange = useCallback(
+    (field: string) => (event: any) => {
+      setBooking((prev) => {
+        const { customer } = prev;
+        customer[field] = event.target.value;
+        return { ...prev, customer };
+      });
+    },
+    []
+  );
+
+  useEffect(() => {
+    if (booking && mailSent) {
+      console.log('OK');
+    }
+  }, [mailSent, booking]);
 
   return (
     <div className="max-w-screen-lg mx-auto px-3 flex items-center justify-center overflow-y-auto bg-gray-100 xs:py-[1rem] sm:py-[1rem] py-[2rem]">
@@ -40,25 +127,25 @@ const BookForm = () => {
         <div className="w-full h-[62px] bg-primary-500 shadow-form-header flex flex-row justify-between rounded-t-[5px]">
           <button
             className={`w-1/2 flex justify-center items-center cursor-pointer border-r border-r-white ${
-              bookingType === EBookingType.Airport
+              booking.type === EBookingType.Airport
                 ? 'text-white'
                 : 'text-gray-900'
             }`}
-            onClick={onClickChangeBookingType(EBookingType.Airport)}
+            onClick={() => updateBookingField('type')(EBookingType.Airport)}
           >
             <i className="fa fa-plane"></i>{' '}
-            <span className="ml-[5px]">Đi sân bay</span>
+            <span className="ml-[5px]">Sân bay</span>
           </button>
           <button
             className={`w-1/2 flex justify-center items-center cursor-pointer ${
-              bookingType === EBookingType.Normal
+              booking.type === EBookingType.Normal
                 ? 'text-white'
                 : 'text-gray-900'
             }`}
-            onClick={onClickChangeBookingType(EBookingType.Normal)}
+            onClick={() => updateBookingField('type')(EBookingType.Normal)}
           >
             <i className="fa fa-road"></i>{' '}
-            <span className="ml-[5px]">Đi đường dài</span>
+            <span className="ml-[5px]">Đường dài</span>
           </button>
         </div>
 
@@ -79,6 +166,7 @@ const BookForm = () => {
               id="source"
               placeholder="Điểm đón"
               type="text"
+              onChange={onInputTextChange('source')}
             ></input>
           </div>
           <div className="w-full h-[40px] flex flex-row px-0">
@@ -96,8 +184,96 @@ const BookForm = () => {
               id="destination"
               placeholder="Điểm đến"
               type="text"
+              onChange={onInputTextChange('destination')}
             ></input>
           </div>
+
+          <div className="w-full h-[40px] flex flex-row px-0 space-x-2">
+            <div className="w-1/2 h-full">
+              <input
+                className="w-full h-full pl-[1rem] sm:pl-[0.5rem] xs:pl-[0.5rem] focus:outline-primary-500 border border-[#ddd] rounded-[5px] placeholder:text-gray-600 sm:placeholder:text-sm xs:placeholder:text-xs"
+                id="name"
+                placeholder="Họ tên*"
+                type="text"
+                onChange={onCustomerInfoChange('name')}
+              ></input>
+            </div>
+            <div className="w-1/2 h-full">
+              <input
+                className="w-full h-full pl-[1rem] sm:pl-[0.5rem] xs:pl-[0.5rem] focus:outline-primary-500 border border-[#ddd] rounded-[5px] placeholder:text-gray-600 sm:placeholder:text-sm xs:placeholder:text-xs"
+                id="phone"
+                placeholder="Số điện thoại*"
+                type="text"
+                onChange={onCustomerInfoChange('phone')}
+              ></input>
+            </div>
+          </div>
+          <div className="w-full h-[40px] flex flex-row px-0 space-x-2">
+            <input
+              className="w-full h-full pl-[1rem] sm:pl-[0.5rem] xs:pl-[0.5rem] focus:outline-primary-500 border border-[#ddd] rounded-[5px] placeholder:text-gray-600 sm:placeholder:text-sm xs:placeholder:text-xs"
+              id="email"
+              placeholder="Email (nếu có)"
+              type="email"
+              onChange={onCustomerInfoChange('email')}
+            ></input>
+          </div>
+          <div className="w-full h-[40px] flex flex-row px-0 space-x-2">
+            <div className="w-1/2 h-full">
+              <select
+                id="car_type"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm xs:text-xs rounded-lg focus:outline-primary-500 block w-full p-2.5"
+                defaultValue={booking.carType}
+                onChange={onSelectInputChange('carType')}
+              >
+                {CarTypes.map((type) => (
+                  <option key={`${type}-slots`} value={type}>
+                    {type} chỗ
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="w-1/2 h-full">
+              <select
+                id="break_points"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm xs:text-xs rounded-lg focus:outline-primary-500 block w-full p-2.5"
+                defaultValue={booking.breakPoints}
+                onChange={onSelectInputChange('breakPoints')}
+              >
+                {BreakPoints.map((item) => (
+                  <option key={`${item}-slots`} value={item}>
+                    {item} điểm dừng
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="w-full h-[40px] flex flex-row px-0 space-x-2">
+            <div className="w-1/2 h-full">
+              <input
+                className="w-full h-full sm:text-sm xs:text-xs pl-[1rem] sm:pl-[0.5rem] xs:pl-[0.5rem] focus:outline-primary-500 border border-[#ddd] rounded-[5px] placeholder:text-gray-600 sm:placeholder:text-sm xs:placeholder:text-xs"
+                id="pickup_date"
+                type="date"
+                defaultValue={booking.pickupDate}
+                onChange={onDateChange}
+              ></input>
+            </div>
+            <div className="w-1/2 h-full">
+              <input
+                className="w-full h-full sm:text-sm xs:text-xs pl-[1rem] sm:pl-[0.5rem] xs:pl-[0.5rem] focus:outline-primary-500 border border-[#ddd] rounded-[5px] placeholder:text-gray-600 sm:placeholder:text-sm xs:placeholder:text-xs"
+                id="pickup_time"
+                placeholder=""
+                type="time"
+                defaultValue={booking.pickupTime}
+                onChange={onTimeChange}
+              ></input>
+            </div>
+          </div>
+          <button
+            className="w-full h-[40px] btn btn-primary bg-primary-500 rounded-[5px] text-white sm:text-sm xs:text-xs"
+            onClick={handleSubmit}
+          >
+            Đặt xe
+          </button>
         </div>
       </div>
     </div>

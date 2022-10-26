@@ -29,7 +29,7 @@ export const sendEmail = async (
             Name: 'Nathan',
           },
         ],
-        Subject: subject || '[taxisanbaypro.vn] Booking Update',
+        Subject: subject || '[taxisanbaypro.vn] New Booking',
         HTMLPart: htmlPart || 'Đơn booking mới!!!',
         TextPart: textPart || '',
       },
@@ -47,27 +47,26 @@ export const sendEmail = async (
     },
   };
 
-  return axios(config)
-    .then(function (response) {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  const res = await axios(config);
+
+  return res.data;
 };
 
 export const generateBookingHTMLEmailContent = (booking: IBooking) => {
   return `
   <div style="width: 80%; border: 0.5px; border-style: dashed; padding: 1rem;">
+  <p>Code: <b>${booking.id || ''}</b></p>
   <p>Booking: <b>${
-    booking.type === EBookingType.Airport ? 'Đi sân bay' : 'Đi đường thường'
+    booking.type === EBookingType.Airport ? 'Sân bay' : 'Đường dài'
   }</b></p>
   <p>Điểm đón: <b>${booking.source}</b></p>
   <p>Điểm trả: <b>${booking.destination}</b></p>
   <p>Hai chiều: <b>${booking.isTwoWaysBooking ? 'Có' : 'Không'}</b></p>
   <p>Xuất hóa đơn: <b>${booking.isBillRequired ? 'Có' : 'Không'}</b></p>
   <p>Loại xe: <b>${booking.carType} chỗ</b></p>
+  <p>Ngày đón: <b>${booking.pickupDate}</b></p>
   <p>Thời gian đón: <b>${booking.pickupTime}</b></p>
+  <p>Điểm dừng: <b>${booking.breakPoints}</b></p>
   <p>Tên khách: <b>${booking.customer.name}</b></p>
   <p>SĐT khách: <a href="tel:${booking.customer.phone}">${
     booking.customer.phone
