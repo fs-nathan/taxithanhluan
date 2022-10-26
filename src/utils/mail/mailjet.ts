@@ -74,6 +74,9 @@ export const generateBookingHTMLEmailContent = (booking: IBooking) => {
   <p>Email khách: <b>${booking.customer.email || 'Không có'}</b></p>
   <p>Ghi chú: <b>${booking.note || 'Không có'}</b></p>
   <p>Mã chuyến bay (nếu có): <b>${booking.flightNo || 'Không có'}</b></p>
+  <a href="https://${process.env.NEXT_PUBLIC_WEB_DOMAIN}/booking/ket-qua/${
+    booking.id
+  }" target="_blank">Booking Link</a>
   </div>
   `;
 };
