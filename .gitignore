@@ -33,3 +33,6 @@ local
 
 # vercel
 .vercel
+
+# yarn.lock
+yarn.lock
