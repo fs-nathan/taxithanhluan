@@ -306,7 +306,7 @@ const BookForm = () => {
                   id="twoways"
                   type="checkbox"
                   className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:outline-none"
-                  checked={booking.isTwoWaysBooking}
+                  defaultChecked={booking.isTwoWaysBooking}
                   onClick={onCheckBoxClicked('isTwoWaysBooking')}
                 />
                 <label
@@ -323,7 +323,7 @@ const BookForm = () => {
                   id="bill"
                   type="checkbox"
                   className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:outline-none"
-                  checked={booking.isBillRequired}
+                  defaultChecked={booking.isBillRequired}
                   onClick={onCheckBoxClicked('isBillRequired')}
                 />
                 <label
