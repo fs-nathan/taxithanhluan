@@ -113,6 +113,17 @@ const BookForm = () => {
     []
   );
 
+  const onCheckBoxClicked = useCallback(
+    (field: string) => () => {
+      setBooking((prev) => {
+        const fields = { ...prev };
+        fields[field] = !fields[field];
+        return fields;
+      });
+    },
+    []
+  );
+
   const disabledButton = useMemo(() => {
     return (
       !booking.source ||
@@ -171,7 +182,7 @@ const BookForm = () => {
               </label>
             </div>
             <input
-              className="pl-[1rem] w-[calc(100%-150px)] sm:w-[calc(100%-66px)] xs:w-[calc(100%-66px)] focus:outline-primary-500 border border-l-0 border-[#ddd] rounded-r-[5px] placeholder:text-gray-600 sm:placeholder:text-sm xs:placeholder:text-xs"
+              className="sm:text-sm xs:text-xs pl-[1rem] w-[calc(100%-150px)] sm:w-[calc(100%-66px)] xs:w-[calc(100%-66px)] focus:outline-primary-500 border border-l-0 border-[#ddd] rounded-r-[5px] placeholder:text-gray-600 sm:placeholder:text-sm xs:placeholder:text-xs"
               id="source"
               placeholder="Điểm đón"
               type="text"
@@ -189,7 +200,7 @@ const BookForm = () => {
               </label>
             </div>
             <input
-              className="pl-[1rem] w-[calc(100%-150px)] sm:w-[calc(100%-66px)] xs:w-[calc(100%-66px)] focus:outline-primary-500 border border-l-0 border-[#ddd] rounded-r-[5px] placeholder:text-gray-600 sm:placeholder:text-sm xs:placeholder:text-xs"
+              className="sm:text-sm xs:text-xs pl-[1rem] w-[calc(100%-150px)] sm:w-[calc(100%-66px)] xs:w-[calc(100%-66px)] focus:outline-primary-500 border border-l-0 border-[#ddd] rounded-r-[5px] placeholder:text-gray-600 sm:placeholder:text-sm xs:placeholder:text-xs"
               id="destination"
               placeholder="Điểm đến"
               type="text"
@@ -200,7 +211,7 @@ const BookForm = () => {
           <div className="w-full h-[40px] flex flex-row px-0 space-x-2">
             <div className="w-1/2 h-full">
               <input
-                className="w-full h-full pl-[1rem] sm:pl-[0.5rem] xs:pl-[0.5rem] focus:outline-primary-500 border border-[#ddd] rounded-[5px] placeholder:text-gray-600 sm:placeholder:text-sm xs:placeholder:text-xs"
+                className="w-full h-full sm:text-sm xs:text-xs pl-[1rem] sm:pl-[0.5rem] xs:pl-[0.5rem] focus:outline-primary-500 border border-[#ddd] rounded-[5px] placeholder:text-gray-600 sm:placeholder:text-sm xs:placeholder:text-xs"
                 id="name"
                 placeholder="Họ tên*"
                 type="text"
@@ -209,7 +220,7 @@ const BookForm = () => {
             </div>
             <div className="w-1/2 h-full">
               <input
-                className="w-full h-full pl-[1rem] sm:pl-[0.5rem] xs:pl-[0.5rem] focus:outline-primary-500 border border-[#ddd] rounded-[5px] placeholder:text-gray-600 sm:placeholder:text-sm xs:placeholder:text-xs"
+                className="w-full h-full sm:text-sm xs:text-xs pl-[1rem] sm:pl-[0.5rem] xs:pl-[0.5rem] focus:outline-primary-500 border border-[#ddd] rounded-[5px] placeholder:text-gray-600 sm:placeholder:text-sm xs:placeholder:text-xs"
                 id="phone"
                 placeholder="Số điện thoại*"
                 type="text"
@@ -219,7 +230,7 @@ const BookForm = () => {
           </div>
           <div className="w-full h-[40px] flex flex-row px-0 space-x-2">
             <input
-              className="w-full h-full pl-[1rem] sm:pl-[0.5rem] xs:pl-[0.5rem] focus:outline-primary-500 border border-[#ddd] rounded-[5px] placeholder:text-gray-600 sm:placeholder:text-sm xs:placeholder:text-xs"
+              className="w-full h-full sm:text-sm xs:text-xs pl-[1rem] sm:pl-[0.5rem] xs:pl-[0.5rem] focus:outline-primary-500 border border-[#ddd] rounded-[5px] placeholder:text-gray-600 sm:placeholder:text-sm xs:placeholder:text-xs"
               id="email"
               placeholder="Email (nếu có)"
               type="email"
@@ -280,7 +291,7 @@ const BookForm = () => {
           {booking.type === EBookingType.Airport && (
             <div className="w-full h-[40px] flex flex-row px-0 space-x-2">
               <input
-                className="w-full h-full pl-[1rem] sm:pl-[0.5rem] xs:pl-[0.5rem] focus:outline-primary-500 border border-[#ddd] rounded-[5px] placeholder:text-gray-600 sm:placeholder:text-sm xs:placeholder:text-xs"
+                className="w-full h-full sm:text-sm xs:text-xs pl-[1rem] sm:pl-[0.5rem] xs:pl-[0.5rem] focus:outline-primary-500 border border-[#ddd] rounded-[5px] placeholder:text-gray-600 sm:placeholder:text-sm xs:placeholder:text-xs"
                 id="flight_no"
                 placeholder="Mã chuyến bay (nếu có)"
                 type="text"
@@ -288,6 +299,42 @@ const BookForm = () => {
               ></input>
             </div>
           )}
+          <div className="w-full h-[20px] flex flex-row px-0 space-x-2">
+            <div className="w-1/2 h-full flex items-center">
+              <div className="flex items-center">
+                <input
+                  id="twoways"
+                  type="checkbox"
+                  className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:outline-none"
+                  checked={booking.isTwoWaysBooking}
+                  onClick={onCheckBoxClicked('isTwoWaysBooking')}
+                />
+                <label
+                  htmlFor="twoways"
+                  className="ml-2 sm:text-sm xs:text-xs text-gray-900"
+                >
+                  Hai chiều
+                </label>
+              </div>
+            </div>
+            <div className="w-1/2 h-full flex items-center">
+              <div className="flex items-center">
+                <input
+                  id="bill"
+                  type="checkbox"
+                  className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:outline-none"
+                  checked={booking.isBillRequired}
+                  onClick={onCheckBoxClicked('isBillRequired')}
+                />
+                <label
+                  htmlFor="bill"
+                  className="ml-2 sm:text-sm xs:text-xs text-gray-900"
+                >
+                  Xuất hóa đơn
+                </label>
+              </div>
+            </div>
+          </div>
           <button
             className="w-full h-[40px] btn btn-primary bg-primary-500 rounded-[5px] text-white sm:text-sm xs:text-xs disabled:bg-gray-500"
             onClick={handleSubmit}
