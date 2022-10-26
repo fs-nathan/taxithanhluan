@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable unused-imports/no-unused-vars */
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -59,7 +60,7 @@ const BookForm = (props: BookFormProps) => {
     res = await res.json();
     const messages = get(res, 'response.Messages', []);
     if (messages) {
-      if (messages[0].status === 'success') {
+      if (messages[0].Status === 'success') {
         setMailSent(true);
       }
     }
@@ -146,6 +147,9 @@ const BookForm = (props: BookFormProps) => {
 
   useEffect(() => {
     if (booking && mailSent) {
+      alert(
+        '🙏 Cảm ơn quý khách đã tin tưởng taxisanbaypro.vn 🚕\n Chúng tôi sẽ liên hệ lại trong giây lát'
+      );
       router.push(`/booking/ket-qua/${booking.id}`);
     }
   }, [mailSent, booking, router]);
@@ -249,7 +253,11 @@ const BookForm = (props: BookFormProps) => {
                 type="text"
                 onChange={onCustomerInfoChange('phone')}
                 disabled={formDisabled}
-                defaultValue={booking.customer.phone}
+                defaultValue={
+                  formDisabled
+                    ? `${booking.customer.phone}`.replace(/\d(?=\d{4})/g, '*')
+                    : booking.customer.phone
+                }
               ></input>
             </div>
           </div>
