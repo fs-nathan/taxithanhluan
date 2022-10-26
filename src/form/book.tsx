@@ -334,7 +334,7 @@ const BookForm = (props: BookFormProps) => {
                 id="flight_no"
                 placeholder="Mã chuyến bay (nếu có)"
                 type="text"
-                onChange={onCustomerInfoChange('flightNo')}
+                onChange={onInputTextChange('flightNo')}
                 disabled={formDisabled}
                 defaultValue={booking.flightNo}
               ></input>
