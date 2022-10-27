@@ -14,18 +14,26 @@ export const getServerSideProps = ({ res }) => {
     .readdirSync(
       {
         development: 'src/pages',
-        production: './',
+        production: '.next/server/pages',
       }[process.env.NODE_ENV]
     )
     .filter((staticPage) => {
-      return ![
-        'index.tsx',
-        'api',
-        '_app.tsx',
-        '_document.tsx',
-        '_error.tsx',
-        'sitemap.xml.tsx',
-      ].includes(staticPage);
+      return (
+        ![
+          'index.tsx',
+          'api',
+          '_app.tsx',
+          '_document.tsx',
+          '_error.tsx',
+          'sitemap.xml.tsx',
+        ].includes(staticPage) &&
+        !staticPage.includes('.js') &&
+        !staticPage.includes('.json') &&
+        !staticPage.includes('404') &&
+        !staticPage.includes('500') &&
+        !staticPage.includes('index') &&
+        staticPage.includes('.html')
+      );
     })
     .map((staticPagePath) => {
       return `${baseUrl}/${staticPagePath}`;
