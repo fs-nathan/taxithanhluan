@@ -3,7 +3,7 @@ import { Section } from '../layout/Section';
 
 const VerticalFeatures = () => (
   <Section
-    title="Dịch vụ xetaxisanbay"
+    title="Dịch vụ taxisanbaypro.vn"
     description="Kinh nghiệm hoạt động trên 5 năm. Dàn xe đời mới, sang trọng, chất lượng cao từ 4 chỗ  đến 16 chỗ luôn sẵn sàng phục vụ 24/7 mọi lúc mọi nơi."
   >
     <div className="mt-20 flex flex-wrap items-center">
@@ -195,10 +195,10 @@ const VerticalFeatures = () => (
       </div>
     </div>
     <VerticalFeatureRow
-      title="Lợi ích khi chọn xetaxisanbay"
+      title="Lợi ích khi chọn taxisanbaypro.vn"
       description=""
       image="/assets/images/service.jpg"
-      imageAlt="Dịch vụ xetaxisanbay"
+      imageAlt="Dịch vụ taxisanbaypro.vn"
       bulletPoints={[
         'Dàn xe chất lượng cao, đa dạng từ 4 chỗ đến 16 chỗ',
         'Giá cước rẻ nhất thị trường, niêm yết trọn gói, có hóa đơn VAT',
