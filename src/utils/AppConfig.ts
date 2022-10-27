@@ -8,4 +8,6 @@ export const AppConfig = {
   zalo: '0917812866',
   telegram: 'MapNguyen',
   hotline: '0384812866',
+  keywords:
+    'noi bai airport, taxi đi nội bài, taxi noi bai, xe taxi nội bài, taxi san bay, xe nội bài, taxi nội bài, xe san bay, taxi đi tỉnh giá rẻ, taxi hà nội giá rẻ, taxisanbay, taxisanbaypro, xevipnoibai, wecar',
 };
