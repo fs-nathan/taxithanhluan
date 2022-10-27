@@ -5,9 +5,9 @@ const Sitemap = () => {};
 export const getServerSideProps = ({ res }) => {
   const baseUrl = {
     development: 'http://localhost:3000',
-    production:
-      `https://${process.env.NEXT_PUBLIC_WEB_DOMAIN}` ||
-      'https://taxisanbaypro.vn',
+    production: process.env.NEXT_PUBLIC_WEB_DOMAIN
+      ? `https://${process.env.NEXT_PUBLIC_WEB_DOMAIN}`
+      : 'https://taxisanbaypro.vn',
   }[process.env.NODE_ENV];
 
   const staticPages = fs
@@ -36,7 +36,7 @@ export const getServerSideProps = ({ res }) => {
       );
     })
     .map((staticPagePath) => {
-      return `${baseUrl}/${staticPagePath}`;
+      return `${baseUrl}/${staticPagePath.replace('.html', '')}`;
     });
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
