@@ -18,15 +18,17 @@ export const getServerSideProps = ({ res }) => {
       }[process.env.NODE_ENV]
     )
     .filter((staticPage) => {
-      return (
-        ![
+      if (process.env.NODE_ENV === 'development')
+        return ![
           'index.tsx',
           'api',
           '_app.tsx',
           '_document.tsx',
           '_error.tsx',
           'sitemap.xml.tsx',
-        ].includes(staticPage) &&
+        ].includes(staticPage);
+
+      return (
         !staticPage.includes('.js') &&
         !staticPage.includes('.json') &&
         !staticPage.includes('404') &&
