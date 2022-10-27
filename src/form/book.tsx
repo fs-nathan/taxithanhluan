@@ -150,7 +150,7 @@ const BookForm = (props: BookFormProps) => {
       alert(
         '🙏 Cảm ơn quý khách đã tin tưởng taxisanbaypro.vn 🚕\n Chúng tôi sẽ liên hệ lại trong giây lát'
       );
-      router.push(`/booking/success?counter=${booking.id}`, undefined, {
+      router.push(`/booking/success?code=${booking.id}`, undefined, {
         shallow: true,
       });
     }
