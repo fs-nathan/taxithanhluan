@@ -16,6 +16,10 @@ class MyDocument extends Document {
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
           />
+          <meta
+            name="google-site-verification"
+            content="q8Pd4HWDL36_2_UMDJtz943O3Iw5QnBMBH35dlui4EY"
+          />
         </Head>
         <body>
           <Main />
