@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-alert */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable unused-imports/no-unused-vars */
@@ -30,6 +31,7 @@ const BookForm = (props: BookFormProps) => {
   const defaultBookingFields = DefaultBookingForm();
   const [booking, setBooking] = useState<IBooking>(defaultBookingFields);
   const [mailSent, setMailSent] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const updateBookingField = useCallback(
     (field: string) => (value: any) => {
@@ -76,7 +78,9 @@ const BookForm = (props: BookFormProps) => {
   }, [booking, sendMailBooking]);
 
   const handleSubmit = useCallback(async () => {
+    setLoading(true);
     await addBooking();
+    setLoading(false);
   }, [addBooking]);
 
   const onSelectInputChange = useCallback(
@@ -381,11 +385,15 @@ const BookForm = (props: BookFormProps) => {
             </div>
           </div>
           <button
-            className="w-full h-[40px] btn btn-primary bg-primary-500 rounded-[5px] text-white sm:text-sm xs:text-xs disabled:bg-gray-500"
+            className="w-full h-[40px] btn btn-primary bg-primary-500 rounded-[5px] text-white sm:text-sm xs:text-xs disabled:bg-gray-500 text-center"
             onClick={handleSubmit}
-            disabled={disabledButton}
+            disabled={disabledButton || loading}
           >
-            {props.bookingData ? 'Đã đặt xe' : 'Đặt xe'}
+            {!loading
+              ? props.bookingData
+                ? 'Đã đặt xe'
+                : 'Đặt xe'
+              : 'Đang tiến hành đặt xe ...'}
           </button>
         </div>
       </div>
