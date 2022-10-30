@@ -173,7 +173,7 @@ const BookForm = (props: BookFormProps) => {
         {/* Form header */}
         <div className="w-full h-[62px] bg-primary-500 shadow-form-header flex flex-row justify-between rounded-t-[5px]">
           <button
-            className={`w-1/2 flex justify-center items-center cursor-pointer border-r border-r-white ${
+            className={`w-1/2 rounded-tl-[5px] flex justify-center items-center cursor-pointer border-r border-r-white ${
               booking.type === EBookingType.Airport
                 ? 'text-white'
                 : 'text-gray-900 bg-gray-500'
@@ -185,7 +185,7 @@ const BookForm = (props: BookFormProps) => {
             <span className="ml-[5px]">Sân bay</span>
           </button>
           <button
-            className={`w-1/2 flex justify-center items-center cursor-pointer ${
+            className={`w-1/2 rounded-tr-[5px] flex justify-center items-center cursor-pointer ${
               booking.type === EBookingType.Normal
                 ? 'text-white'
                 : 'text-gray-900 bg-gray-500'
