@@ -29,7 +29,10 @@ export const sendEmail = async (
             Name: 'Nathan',
           },
         ],
-        Subject: subject || '[taxisanbaypro.vn] New Booking',
+        Subject:
+          subject || process.env.NODE_ENV === 'production'
+            ? '[taxisanbaypro.vn] New Booking'
+            : '[taxisanbaypro.vn] Warning',
         HTMLPart: htmlPart || 'Đơn booking mới!!!',
         TextPart: textPart || '',
       },
