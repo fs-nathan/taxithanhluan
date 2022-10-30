@@ -168,7 +168,10 @@ const BookForm = (props: BookFormProps) => {
 
   useEffect(() => {
     if (!booking.destination && booking.type === EBookingType.Airport) {
-      setBooking({ ...booking, destination: 'Nội Bài' });
+      const destinationInput = document.getElementById(
+        'destination'
+      ) as HTMLInputElement;
+      if (destinationInput) destinationInput.value = 'Nội Bài';
     }
   }, [booking, booking.type]);
 
