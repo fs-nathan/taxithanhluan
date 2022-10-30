@@ -48,7 +48,7 @@ export const DefaultBookingForm = () => {
     id: getId(),
     type: EBookingType.Airport,
     source: '',
-    destination: '',
+    destination: 'Nội Bài',
     isTwoWaysBooking: false,
     isBillRequired: false,
     carType: ECarType.FourSeat,

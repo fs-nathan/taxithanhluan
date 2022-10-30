@@ -166,15 +166,6 @@ const BookForm = (props: BookFormProps) => {
     }
   }, [props.bookingData]);
 
-  useEffect(() => {
-    if (!booking.destination && booking.type === EBookingType.Airport) {
-      const destinationInput = document.getElementById(
-        'destination'
-      ) as HTMLInputElement;
-      if (destinationInput) destinationInput.value = 'Nội Bài';
-    }
-  }, [booking, booking.type]);
-
   return (
     <div className="max-w-screen-lg mx-auto px-3 flex items-center justify-center overflow-y-auto bg-gray-100 xs:py-[1rem] sm:py-[1rem] py-[2rem]">
       {/* Form */}
