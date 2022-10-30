@@ -73,7 +73,7 @@ const BookForm = (props: BookFormProps) => {
       await addDoc(collection(database, 'booking'), booking);
       await sendMailBooking();
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   }, [booking, sendMailBooking]);
 
@@ -161,8 +161,16 @@ const BookForm = (props: BookFormProps) => {
   }, [mailSent, booking, router]);
 
   useEffect(() => {
-    if (props.bookingData) setBooking(props.bookingData);
+    if (props.bookingData) {
+      setBooking(props.bookingData);
+    }
   }, [props.bookingData]);
+
+  useEffect(() => {
+    if (!booking.destination && booking.type === EBookingType.Airport) {
+      setBooking({ ...booking, destination: 'Nội Bài' });
+    }
+  }, [booking, booking.type]);
 
   return (
     <div className="max-w-screen-lg mx-auto px-3 flex items-center justify-center overflow-y-auto bg-gray-100 xs:py-[1rem] sm:py-[1rem] py-[2rem]">
@@ -174,7 +182,7 @@ const BookForm = (props: BookFormProps) => {
             className={`w-1/2 flex justify-center items-center cursor-pointer border-r border-r-white ${
               booking.type === EBookingType.Airport
                 ? 'text-white'
-                : 'text-gray-900'
+                : 'text-gray-900 bg-gray-500'
             }`}
             onClick={() => updateBookingField('type')(EBookingType.Airport)}
             disabled={formDisabled}
@@ -186,7 +194,7 @@ const BookForm = (props: BookFormProps) => {
             className={`w-1/2 flex justify-center items-center cursor-pointer ${
               booking.type === EBookingType.Normal
                 ? 'text-white'
-                : 'text-gray-900'
+                : 'text-gray-900 bg-gray-500'
             }`}
             onClick={() => updateBookingField('type')(EBookingType.Normal)}
             disabled={formDisabled}
@@ -283,7 +291,7 @@ const BookForm = (props: BookFormProps) => {
               <select
                 id="car_type"
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm xs:text-xs rounded-lg focus:outline-primary-500 block w-full p-2.5"
-                defaultValue={booking.carType}
+                value={booking.carType}
                 onChange={onSelectInputChange('carType')}
                 disabled={formDisabled}
               >
@@ -298,7 +306,7 @@ const BookForm = (props: BookFormProps) => {
               <select
                 id="break_points"
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm xs:text-xs rounded-lg focus:outline-primary-500 block w-full p-2.5"
-                defaultValue={booking.breakPoints}
+                value={booking.breakPoints}
                 onChange={onSelectInputChange('breakPoints')}
                 disabled={formDisabled}
               >
@@ -316,7 +324,7 @@ const BookForm = (props: BookFormProps) => {
                 className="w-full h-full sm:text-sm xs:text-xs pl-[1rem] sm:pl-[0.5rem] xs:pl-[0.5rem] focus:outline-primary-500 border border-[#ddd] rounded-[5px] placeholder:text-gray-600 sm:placeholder:text-sm xs:placeholder:text-xs"
                 id="pickup_date"
                 type="date"
-                defaultValue={booking.pickupDate}
+                value={booking.pickupDate}
                 onChange={onDateChange}
                 disabled={formDisabled}
               ></input>
@@ -327,7 +335,7 @@ const BookForm = (props: BookFormProps) => {
                 id="pickup_time"
                 placeholder=""
                 type="time"
-                defaultValue={booking.pickupTime}
+                value={booking.pickupTime}
                 onChange={onTimeChange}
                 disabled={formDisabled}
               ></input>
