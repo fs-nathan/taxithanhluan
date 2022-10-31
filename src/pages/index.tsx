@@ -19,7 +19,7 @@ const Index = () => (
         }
         description="Cung cấp xe đi Hà Nội - Nội Bài và đi các tỉnh 24/7"
         button={
-          <Link href={Routes.BookTaxi}>
+          <Link href={Routes.BookTaxi} passHref>
             <a>
               <Button xl>Đặt xe ngay</Button>
             </a>

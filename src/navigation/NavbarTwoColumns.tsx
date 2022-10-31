@@ -34,7 +34,7 @@ const NavbarTwoColumns = (props: INavbarProps) => {
       className="flex flex-wrap justify-between items-center sm:flex-nowrap sm:flex-col xs:flex-nowrap xs:flex-col"
     >
       <div ref={logoRef}>
-        <Link href="/">
+        <Link href="/" passHref>
           <a>{props.logo}</a>
         </Link>
       </div>

@@ -26,12 +26,12 @@ const Hero = () => {
       <Section yPadding="py-6">
         <NavbarTwoColumns logo={<Logo xl />}>
           <li className={getActiveClassNameHomeRoute()}>
-            <Link href={Routes.HomePage}>
+            <Link href={Routes.HomePage} passHref>
               <a>{NavItems.HomePage}</a>
             </Link>
           </li>
           <li className={getActiveClassName(Routes.BookTaxi)}>
-            <Link href={Routes.BookTaxi}>
+            <Link href={Routes.BookTaxi} passHref>
               <a>{NavItems.BookTaxi}</a>
             </Link>
           </li>
@@ -41,7 +41,7 @@ const Hero = () => {
             </Link>
           </li> */}
           <li className={getActiveClassName(Routes.Pricing)}>
-            <Link href={Routes.Pricing}>
+            <Link href={Routes.Pricing} passHref>
               <a>{NavItems.Pricing}</a>
             </Link>
           </li>
@@ -56,7 +56,7 @@ const Hero = () => {
             </Link>
           </li> */}
           <li className={getActiveClassName(Routes.AboutUs)}>
-            <Link href={Routes.AboutUs}>
+            <Link href={Routes.AboutUs} passHref>
               <a>{NavItems.AboutUs}</a>
             </Link>
           </li>
