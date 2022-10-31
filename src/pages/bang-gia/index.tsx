@@ -1,7 +1,10 @@
+import { Meta } from '../../layout/Meta';
 import { Base } from '../../templates/Base';
+import { AppConfig } from '../../utils/AppConfig';
 
 const BangGia = () => (
   <Base>
+    <Meta title={`Bảng giá dịch vụ - ${AppConfig.title}`} />
     <div className="mt-10 flex flex-wrap items-center">
       <div className="w-full text-center sm:px-6">
         <h3 className="text-3xl text-gray-900 font-semibold">

@@ -5,8 +5,8 @@ import { useRouter } from 'next/router';
 import { AppConfig } from '../utils/AppConfig';
 
 type IMetaProps = {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   canonical?: string;
 };
 
