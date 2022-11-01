@@ -62,7 +62,7 @@ const BookForm = (props: BookFormProps) => {
     res = await res.json();
     const messages = get(res, 'response.Messages', []);
     if (messages && messages[0]) {
-      if (messages[0].Status === 'success') {
+      if (get(messages[0], 'Status') === 'success') {
         setMailSent(true);
       }
     }
