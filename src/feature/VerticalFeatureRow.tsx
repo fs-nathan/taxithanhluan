@@ -31,7 +31,9 @@ const VerticalFeatureRow = (props: IVerticalFeatureRowProps) => {
   return (
     <div ref={containerRef} className={verticalFeatureClass}>
       <div className="w-full sm:w-1/2 text-center sm:px-6">
-        <h3 className="text-3xl text-gray-900 font-semibold">{props.title}</h3>
+        <h3 className="text-3xl sm:text-base xs:text-base text-gray-900 font-semibold">
+          {props.title}
+        </h3>
         <div className="mt-6 text-xl leading-9">{props.description}</div>
       </div>
       {props.bulletPoints && (

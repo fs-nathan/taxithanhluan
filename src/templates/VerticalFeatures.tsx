@@ -8,10 +8,10 @@ const VerticalFeatures = () => (
   >
     <div className="mt-20 flex flex-wrap items-center">
       <div className="w-full text-center sm:px-6">
-        <h3 className="text-3xl text-gray-900 font-semibold">
+        <h3 className="text-3xl sm:text-base xs:text-base text-gray-900 font-semibold">
           Bảng giá dịch vụ
         </h3>
-        <div className="mt-6 text-lg leading-9 px-6">
+        <div className="mt-6 xs:mt-3 sm:mt-3 text-lg sm:text-base xs:text-base leading-9 px-6">
           Đặt xe ngay để nhận báo giá cụ thể chi tiết
         </div>
       </div>
@@ -200,6 +200,7 @@ const VerticalFeatures = () => (
       image="/assets/images/service.jpg"
       imageAlt="Dịch vụ taxisanbaypro.vn"
       bulletPoints={[
+        'Chúng tôi chuyên tuyến taxi Nội Bài Hà Nội và Hà Nội đi đường dài đến các tỉnh khắp cả nước',
         'Dàn xe chất lượng cao, đa dạng từ 4 chỗ đến 16 chỗ',
         'Giá cước rẻ nhất thị trường, niêm yết trọn gói, có hóa đơn VAT',
         'Đón trả khách đúng giờ, đúng tuyến',

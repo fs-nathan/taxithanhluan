@@ -71,17 +71,17 @@ const Footer = () => (
           </>
         }
       >
-        <li className="sm:text-sm xs:text-xs">
+        <li className="sm:text-base xs:text-base">
           <Link href={Routes.HomePage} passHref>
             <a>{NavItems.HomePage}</a>
           </Link>
         </li>
-        <li className="sm:text-sm xs:text-xs">
+        <li className="sm:text-base xs:text-base">
           <Link href={Routes.BookTaxi} passHref>
             <a>{NavItems.BookTaxi}</a>
           </Link>
         </li>
-        <li className="sm:text-sm xs:text-xs">
+        <li className="sm:text-base xs:text-base">
           <Link href={Routes.AboutUs} passHref>
             <a>{NavItems.AboutUs}</a>
           </Link>

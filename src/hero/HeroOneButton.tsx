@@ -3,18 +3,20 @@ import { ReactNode } from 'react';
 type IHeroOneButtonProps = {
   title: ReactNode;
   description: string;
-  button: ReactNode;
+  child?: ReactNode;
 };
 
 const HeroOneButton = (props: IHeroOneButtonProps) => (
-  <header className="text-center">
-    <h1 className="text-4xl text-gray-900 font-bold whitespace-pre-line leading-hero">
+  <div className="text-center">
+    <h1 className="text-4xl sm:text-base xs:text-base text-gray-900 font-bold whitespace-pre-line">
       {props.title}
     </h1>
-    <div className="text-2xl mt-4 mb-4">{props.description}</div>
+    <div className="text-2xl sm:text-base xs:text-base mt-4 mb-4 xs:my-2 sm:my-2">
+      {props.description}
+    </div>
 
-    {props.button}
-  </header>
+    {props.child}
+  </div>
 );
 
 export { HeroOneButton };

@@ -6,6 +6,12 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://www.taxisanbaypro.vn/dat-xe</loc>
+    <lastmod>2022-10-27T09:38:41.678Z</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
     <loc>https://www.taxisanbaypro.vn/booking</loc>
     <lastmod>2022-10-27T09:38:41.678Z</lastmod>
     <changefreq>hourly</changefreq>

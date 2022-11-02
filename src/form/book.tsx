@@ -167,7 +167,7 @@ const BookForm = (props: BookFormProps) => {
   }, [props.bookingData]);
 
   return (
-    <div className="max-w-screen-lg mx-auto px-3 flex items-center justify-center overflow-y-auto bg-gray-100 xs:py-[1rem] sm:py-[1rem] py-[2rem]">
+    <div className="max-w-screen-lg mx-auto px-3 flex items-center justify-center overflow-y-auto xs:py-[1rem] sm:py-[1rem] py-[2rem]">
       {/* Form */}
       <div className="w-[600px] min-h-[452px] xs:w-full xs:min-h-[452px] sm:w-full sm:min-h-[452px] flex flex-col rounded-[5px] shadow-form">
         {/* Form header */}

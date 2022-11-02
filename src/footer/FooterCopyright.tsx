@@ -1,7 +1,7 @@
 import { AppConfig } from '../utils/AppConfig';
 
 const FooterCopyright = () => (
-  <div className="footer-copyright">
+  <div className="footer-copyright sm:text-sm xs:text-xs">
     © Copyright {new Date().getFullYear()} {AppConfig.title}{' '}
     <span role="img" aria-label="Love">
       ♥

@@ -7,7 +7,7 @@ const BangGia = () => (
     <Meta title={`Bảng giá dịch vụ - ${AppConfig.title}`} />
     <div className="mt-10 flex flex-wrap items-center">
       <div className="w-full text-center sm:px-6">
-        <h3 className="text-3xl text-gray-900 font-semibold">
+        <h3 className="text-3xl sm:text-xl xs:text-xl text-gray-900 font-semibold">
           Bảng giá dịch vụ
         </h3>
         <div className="mt-6 text-base leading-9 px-6">

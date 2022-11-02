@@ -1,30 +1,20 @@
-import Link from 'next/link';
-
-import { Button } from '../button/Button';
+import { BookForm } from '../form/book';
 import { HeroOneButton } from '../hero/HeroOneButton';
 import { Section } from '../layout/Section';
 import { Base } from '../templates/Base';
 import { VerticalFeatures } from '../templates/VerticalFeatures';
-import { Routes } from '../utils/Constants';
 
 const Index = () => (
   <Base>
-    <Section yPadding="pt-10">
+    <Section yPadding="pt-10 xs:pt-3 sm:pt-3">
       <HeroOneButton
         title={
           <>
-            {'Chuyên đưa đón\n'}
-            <span className="text-primary-500">Khách đi sân bay</span>
+            <span className="text-primary-500 capitalize">taxi sân bay</span>
           </>
         }
-        description="Cung cấp xe đi Hà Nội - Nội Bài và đi các tỉnh 24/7"
-        button={
-          <Link href={Routes.BookTaxi} passHref>
-            <a>
-              <Button xl>Đặt xe ngay</Button>
-            </a>
-          </Link>
-        }
+        description="Xe Hà Nội - Nội Bài và Hà Nội đi các tỉnh"
+        child={<BookForm />}
       />
     </Section>
     <VerticalFeatures />

@@ -9,16 +9,15 @@ import { Routes } from '../../utils/Constants';
 
 const GioiThieu = () => (
   <Base>
-    <Section yPadding="pt-10">
+    <Section yPadding="pt-10 xs:pt-3 sm:pt-3">
       <HeroOneButton
         title={
           <>
-            {'Chuyên đưa đón\n'}
-            <span className="text-primary-500">Khách đi sân bay</span>
+            <span className="text-primary-500 capitalize">taxi sân bay</span>
           </>
         }
-        description="Cung cấp xe đi Hà Nội - Nội Bài và đi các tỉnh 24/7"
-        button={
+        description="Chuyên tuyến Hà Nội - Nội Bài và Hà Nội đi các tỉnh 24/7"
+        child={
           <Link href={Routes.BookTaxi} passHref>
             <a>
               <Button xl>Đặt xe ngay</Button>
@@ -37,12 +36,13 @@ const GioiThieu = () => (
         image="/assets/images/service.jpg"
         imageAlt="Dịch vụ taxisanbaypro.vn"
         bulletPoints={[
+          'Chúng tôi chuyên tuyến taxi Nội Bài Hà Nội và Hà Nội đi đường dài đến các tỉnh khắp cả nước',
           'Dàn xe chất lượng cao, đa dạng từ 4 chỗ đến 16 chỗ',
           'Giá cước rẻ nhất thị trường, niêm yết trọn gói, có hóa đơn VAT',
           'Đón trả khách đúng giờ, đúng tuyến',
           'Miễn thời gian chờ khách 60 phút',
           'Tổng đài hỗ trợ luôn sẵn sàng 24/7',
-          'Hệ thống quản lý booking chuyên nghiệp',
+          'Hệ thống quản lý đặt xe chuyên nghiệp',
         ]}
       />
     </Section>
