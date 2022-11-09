@@ -83,6 +83,18 @@ const BookForm = (props: BookFormProps) => {
     setLoading(false);
   }, [addBooking]);
 
+  const handleReverse = useCallback(async () => {
+    setLoading(true);
+    setBooking((prev) => {
+      const fields = { ...prev };
+      const temp = `${fields.source || ''}`;
+      fields.source = `${fields.destination || ''}`;
+      fields.destination = `${temp || ''}`;
+      return fields;
+    });
+    setLoading(false);
+  }, []);
+
   const onSelectInputChange = useCallback(
     (field: string) => (e: React.ChangeEvent<HTMLSelectElement>) => {
       const { value } = e.target;
@@ -148,6 +160,10 @@ const BookForm = (props: BookFormProps) => {
       !booking?.customer.phone
     );
   }, [booking, formDisabled]);
+
+  const disableReverse = useMemo(() => {
+    return (!booking.source && !booking.destination) || formDisabled;
+  }, [booking.destination, booking.source, formDisabled]);
 
   useEffect(() => {
     if (booking && mailSent) {
@@ -217,7 +233,7 @@ const BookForm = (props: BookFormProps) => {
               type="text"
               onChange={onInputTextChange('source')}
               disabled={formDisabled}
-              defaultValue={booking.source}
+              value={booking.source}
             ></input>
           </div>
           <div className="w-full h-[40px] flex flex-row px-0">
@@ -237,10 +253,20 @@ const BookForm = (props: BookFormProps) => {
               type="text"
               onChange={onInputTextChange('destination')}
               disabled={formDisabled}
-              defaultValue={booking.destination}
+              value={booking.destination}
             ></input>
           </div>
-
+          {!formDisabled && (
+            <div className="w-full h-[40px] flex flex-row-reverse px-0">
+              <button
+                className="w-1/2 sm:w-full xs:w-full h-[40px] btn btn-primary bg-primary-500 rounded-[5px] text-white sm:text-sm xs:text-xs disabled:bg-gray-500 text-center"
+                onClick={handleReverse}
+                disabled={disableReverse || loading}
+              >
+                Đảo chiều
+              </button>
+            </div>
+          )}
           <div className="w-full h-[40px] flex flex-row px-0 space-x-2">
             <div className="w-1/2 h-full">
               <input
