@@ -6,7 +6,6 @@ export const Routes = {
   Pricing: '/bang-gia',
   Contract: '/thue-xe-hop-dong',
   BookTaxi: '/booking',
-  DatXe: '/dat-xe',
 };
 
 export const NavItems = {
