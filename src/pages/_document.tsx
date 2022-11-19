@@ -21,7 +21,10 @@ class MyDocument extends Document {
             name="google-site-verification"
             content="q8Pd4HWDL36_2_UMDJtz943O3Iw5QnBMBH35dlui4EY"
           />
-          <meta name="ahrefs-site-verification" content="e81003f3867f98ee42d15dd16b16bf64b181daaf13681b13d112e34476d2456a" />
+          <meta
+            name="ahrefs-site-verification"
+            content="e81003f3867f98ee42d15dd16b16bf64b181daaf13681b13d112e34476d2456a"
+          />
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           {process.env.NODE_ENV === 'production' && (
             <>
